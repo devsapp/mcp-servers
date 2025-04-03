@@ -1,11 +1,11 @@
 
 > 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 `s init ${模版名称}` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
 
-# start-mcp-server-python 帮助文档
+# start-mcp-python-hello-world 帮助文档
 
 <description>
 
-基于 Python 的FC MCP SSE Server案例
+基于 Python 的 FC MCP SSE Server 案例
 
 </description>
 
@@ -40,7 +40,7 @@
 
 <appcenter>
    
-- :fire: 通过 [云原生应用开发平台 CAP](https://cap.console.aliyun.com/template-detail?template=start-mcp-server-python) ，[![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://cap.console.aliyun.com/template-detail?template=start-mcp-server-python) 该应用。
+- :fire: 通过 [云原生应用开发平台 CAP](https://cap.console.aliyun.com/template-detail?template=start-mcp-python-hello-world) ，[![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://cap.console.aliyun.com/template-detail?template=start-mcp-python-hello-world) 该应用。
    
 </appcenter>
 <deploy>
@@ -81,7 +81,6 @@ npx @modelcontextprotocol/inspector node build/index.js
 ```
 
 注意：填写 URL 时，需加上 `/sse` 后缀。
-
 
 </usedetail>
 
