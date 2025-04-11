@@ -1,0 +1,9 @@
+mcp_server:
+  default:
+    languages:
+      - java21
+    steps:
+      - run: chmod +x ./mvnw
+        path: ./code
+      - run: ./mvnw clean install -DskipTests
+        path: ./code

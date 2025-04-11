@@ -1,0 +1,58 @@
+edition: 3.0.0
+name: start-mcp-server-nodejs
+access: '{{access}}'
+vars:
+  region: '{{region}}'
+resources:
+  mcp_server:
+    component: fc3
+    actions:
+      pre-deploy:
+        - run: chmod +x ./mvnw && ./mvnw clean install -DskipTests
+          path: ./code
+    props:
+      region: ${vars.region}
+      description: Serverless Devs Java MCP Server
+      runtime: custom.debian10
+      timeout: 300
+      cpu: 0.5
+      memorySize: 512
+      diskSize: 512
+      logConfig: auto
+      environmentVariables:
+        PATH: 
+          /opt/nodejs/node_modules/.bin:/opt/python/bin:/code/python/bin:/var/fc/lang/python3.10/bin:/var/fc/lang/nodejs20/bin:/opt/java21/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin
+        JAVA_HOME: /opt/java21
+        PYTHONPATH: /opt/python:/code/python:/code
+      layers:
+        - acs:fc:${vars.region}:official:layers/Java21/versions/1
+        - acs:fc:${vars.region}:1767215449378635:layers/mcp-proxy-layer/versions/6
+      customRuntimeConfig:
+        command:
+          - 'supergateway'
+          - '--stdio'
+          - './bootstrap'
+          - '--port'
+          - '8080'
+          - '--ssePath'
+          - '/sse'
+          - '--messagePath'
+          - '/message'
+        port: 8080
+      functionName: '{{functionName}}'
+      code: ./code
+      instanceConcurrency: 200
+      concurrencyConfig:
+        reservedConcurrency: 1
+      triggers:
+        - triggerName: httpTrigger
+          triggerType: http
+          triggerConfig:
+            authType: anonymous
+            methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - HEAD
+              - OPTIONS
