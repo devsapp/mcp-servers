@@ -1,0 +1,15 @@
+services:
+  mcp-server-aliyun-observability:
+    AccessKeyID:
+      title: 阿里云 AccessKey ID
+      type: string
+      default: ''
+      sensitive: true
+      description: 阿里云 AccessKey ID
+    AccessKeySecret:
+      title: 阿里云 AccessKey Secret
+      type: string
+      default: ''
+      sensitive: true
+      description: 阿里云 AccessKey Secret
+  
