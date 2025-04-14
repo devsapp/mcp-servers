@@ -1,0 +1,8 @@
+services:
+  start-mcp-time:
+    TZ:
+      title: 当前时区
+      type: string
+      default: Asia/Shanghai
+      description: mcp_server_timelocal-timezone 参数, 请参考 https://www.zeitverschiebung.net/cn/all-time-zones.html
+  

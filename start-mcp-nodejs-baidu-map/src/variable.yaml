@@ -1,0 +1,9 @@
+services:
+  start-mcp-nodejs-baidu-map:
+    BAIDU_MAP_API_KEY:
+      title: BAIDU_MAP_API_KEY
+      type: string
+      default: ''
+      sensitive: 'true'
+      pattern: ^[a-zA-Z_][a-zA-Z0-9_\-\.]*$
+      description: 获取百度地图 API_KEY,  请参考 https://lbsyun.baidu.com/faq/search?id=299&title=677

@@ -1,0 +1,8 @@
+services:
+  start-mcp-amap-maps:
+    AMAP_MAPS_API_KEY:
+      title: AMAP_MAPS_API_KEY
+      default: ''
+      sensitive: true
+      description: '获取高德地图 AMap Maps API key，请参考 https://lbs.amap.com/api/webservice/create-project-and-key.'
+      type: string

@@ -1,5 +1,6 @@
-start-mcp-server:
+start-mcp-everything:
   default:
+    rootPath: ./code
     languages:
       - nodejs20
     cache:
@@ -7,6 +8,4 @@ start-mcp-server:
         - "~/.npm"
     steps:
       - run: npm install
-        path: ./code
       - run: npm run build
-        path: ./code

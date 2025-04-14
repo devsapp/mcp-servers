@@ -1,54 +1,19 @@
 edition: 3.0.0
-name: hello-world-app
+name: mcp-server-app
 access: "{{ access }}"
 
 vars: #
   region: "{{ region }}"
 
 resources:
-  start-mcp-server:
-    component: fc3 
+  start-mcp-time:
+    component: fcai-mcp-server
     props:
-      region: ${vars.region} 
-      functionName: "{{ functionName }}"
-      description: "mcp server deployed by devs"
-      runtime: custom.debian10
-      code: ./code
-      handler: index.handler
-      timeout: 600
-      instanceConcurrency: 100
+      region: ${vars.region}
+      description: mcp server deployed by devs
+      transport: stdio
+      runtime: python3.10
+      startCommand: 'mcp-server-time --local-timezone=$TZ'
       cpu: 0.5
       memorySize: 512
-      diskSize: 512
-      logConfig: auto
-      environmentVariables:
-        PATH: 
-          /opt/nodejs/node_modules/.bin:/opt/python/bin:/code/python/bin:/var/fc/lang/python3.10/bin:/var/fc/lang/nodejs20/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-        PYTHONPATH: /opt/python:/code/python:/code
-        TZ: "{{ TZ }}"
-      layers:
-        - acs:fc:${vars.region}:1767215449378635:layers/mcp-proxy-layer/versions/6
-      customRuntimeConfig:
-        command:
-          - 'supergateway'
-          - '--stdio'
-          - 'mcp-server-time --local-timezone=$TZ'
-          - '--port'
-          - '8080'
-          - '--ssePath'
-          - '/sse'
-          - '--messagePath'
-          - '/message'
-        port: 8080
-      triggers:
-        - triggerName: httpTrigger
-          triggerType: http
-          triggerConfig:
-            authType: anonymous
-            methods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - HEAD
-              - OPTIONS
+      instanceQuota: 1

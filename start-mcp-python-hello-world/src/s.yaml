@@ -3,50 +3,18 @@ name: start-mcp-server-python
 access: '{{access}}'
 vars:
   region: '{{region}}'
-  path: /var/fc/lang/python3.10/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin:/opt/bin:/code:/code/bin
+
 resources:
-  mcp_server:
-    component: fc3
+  python-sse-hello-world:
+    component: fcai-mcp-server
     props:
       region: ${vars.region}
-      description: Serverless Devs Python MCP Server
-      runtime: custom.debian10
-      timeout: 300
+      description: mcp server deployed by devs
+      transport: sse
+      runtime: python3.10
+      startCommand: 'python3 -m uvicorn main:app --host 0.0.0.0 --port 8080'
       cpu: 0.5
       memorySize: 512
-      diskSize: 512
+      instanceQuota: 1
       layers:
         - acs:fc:${vars.region}:official:layers/Python3x-MCP/versions/3
-      logConfig: auto
-      environmentVariables:
-        PATH: ${vars.path}
-        PYTHONPATH: /opt/python:/code/python:/code
-        TZ: Asia/Shanghai
-      customRuntimeConfig:
-        port: 8080
-        command:
-          - python3
-          - -m
-          - uvicorn
-          - main:app
-          - --host
-          - '0.0.0.0'
-          - --port
-          - '8080'
-      functionName: '{{functionName}}'
-      code: ./code
-      instanceConcurrency: 200
-      concurrencyConfig:
-        reservedConcurrency: 1
-      triggers:
-        - triggerName: httpTrigger
-          triggerType: http
-          triggerConfig:
-            authType: anonymous
-            methods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - HEAD
-              - OPTIONS

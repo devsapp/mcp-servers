@@ -1,5 +1,6 @@
-start-mcp-server:
+start-mcp-fetch:
   default:
+    rootPath: ./code
     languages:
       - python3.10
     cache:
@@ -7,8 +8,5 @@ start-mcp-server:
         - "~/.cache"
     steps:
       - run: mkdir -p python
-        path: ./code
       - run: pip install -r requirements.txt -t ./python
-        path: ./code
       - run: find ./python/bin -type f -perm -u+x -exec sed -i '1{/^#!.*/ s|.*|#!/usr/bin/env python3|}' {} \;
-        path: ./code

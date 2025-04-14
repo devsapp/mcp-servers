@@ -6,50 +6,15 @@ vars:
   region: "{{ region }}"
 
 resources:
-  start-mcp-server:
-    component: fc3
+  start-mcp-amap-maps:
+    component: fcai-mcp-server
     props:
       region: ${vars.region}
-      functionName: "{{ functionName }}"
       description: mcp server deployed by devs
-      runtime: custom.debian10
-      timeout: 600
+      transport: stdio
+      runtime: nodejs20
+      startCommand: 'node index.js'
       cpu: 0.5
       memorySize: 512
-      diskSize: 512
-      instanceConcurrency: 200
-      logConfig: auto
-      environmentVariables:
-        PATH: 
-          /opt/nodejs/node_modules/.bin:/opt/python/bin:/code/python/bin:/var/fc/lang/python3.10/bin:/var/fc/lang/nodejs20/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-        PYTHONPATH: /opt/python:/code/python:/code
-        AMAP_MAPS_API_KEY: '{{ AMAP_MAPS_API_KEY }}'
-      layers:
-        - acs:fc:${vars.region}:1767215449378635:layers/mcp-proxy-layer/versions/6
-      customRuntimeConfig:
-        command:
-          - 'supergateway'
-          - '--stdio'
-          - 'node index.js'
-          - '--port'
-          - '8080'
-          - '--ssePath'
-          - '/sse'
-          - '--messagePath'
-          - '/message'
-        port: 8080
-      code: ./code
-      concurrencyConfig:
-        reservedConcurrency: 1
-      triggers:
-        - triggerName: httpTrigger
-          triggerType: http
-          triggerConfig:
-            authType: anonymous
-            methods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - HEAD
-              - OPTIONS
+      instanceQuota: 1
+      

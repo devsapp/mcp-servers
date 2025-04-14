@@ -1,6 +1,6 @@
 Edition: 3.0.0
 Type: Project
-Name: start-mcp-python-hello-world-stdio
+Name: fcai-start-mcp-python-hello-world-stdio
 Version: 0.0.1
 Provider:
   - 阿里云 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
@@ -9,7 +9,7 @@ HomePage: https://github.com/devsapp/mcp-servers
 Tags: #标签详情
   - MCP
   - Develop
-Category: AI工具 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
+Category: MCP服务 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
 Service: # 使用的服务
   函数计算: # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
     Authorities: #权限描述

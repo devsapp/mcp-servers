@@ -1,5 +1,6 @@
-mcp_server:
+nodejs-stdio-hello-world:
   default:
+    rootPath: ./code
     languages:
       - nodejs20
     cache:
@@ -7,6 +8,4 @@ mcp_server:
         - "~/.npm"
     steps:
       - run: npm install
-        path: ./code
       - run: npm run build
-        path: ./code

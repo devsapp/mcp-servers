@@ -1,0 +1,10 @@
+services:
+  start-mcp-github:
+    GITHUB_PERSONAL_ACCESS_TOKEN:
+      title: GITHUB_PERSONAL_ACCESS_TOKEN
+      type: string
+      default: ''
+      sensitive: 'true'
+      pattern: ^[a-zA-Z0-9_][a-zA-Z0-9_\-.]*$
+      description: Github Personal Access Token, 请参考 
+        https://github.com/modelcontextprotocol/servers/tree/main/src/github#personal-access-token
