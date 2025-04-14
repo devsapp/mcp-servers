@@ -11,7 +11,7 @@ resources:
       description: mcp server deployed by devs
       transport: stdio
       runtime: python3.10
-      startCommand: 'python3 main.py'
+      startCommand: 'python3 code/main.py'
       cpu: 0.5
       memorySize: 512
       instanceQuota: 1

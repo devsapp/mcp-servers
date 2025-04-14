@@ -5,7 +5,7 @@
 
 <description>
 
-MCP Server for the AMap Map API
+高德地图MCP Server现已覆盖12大核心接口，提供全场景覆盖的地理信息服务，包括地理编码、逆地理编码、IP定位、天气查询、骑行路径规划、步行路径规划、驾车路径规划、公交路径规划、距离测量、关键词搜索、周边搜索、详情搜索等。
 
 </description>
 
@@ -54,7 +54,7 @@ MCP Server for the AMap Map API
 
 # AMap Map MCP Server
 
-MCP Server for the AMap Map API.
+高德地图MCP Server现已覆盖12大核心接口，提供全场景覆盖的地理信息服务，包括地理编码、逆地理编码、IP定位、天气查询、骑行路径规划、步行路径规划、驾车路径规划、公交路径规划、距离测量、关键词搜索、周边搜索、详情搜索等。
 
 
 

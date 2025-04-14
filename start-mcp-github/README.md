@@ -5,7 +5,7 @@
 
 <description>
 
-GitHub MCP Server
+GitHub 官方提供的服务，为开发人员和工具提供连接 GitHub 的高级自动化和交互功能
 
 </description>
 

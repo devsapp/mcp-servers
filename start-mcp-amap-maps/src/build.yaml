@@ -3,8 +3,8 @@ start-mcp-amap-maps:
     rootPath: ./code
     languages:
       - nodejs20
-    cache:
-      paths:
-        - "~/.npm"
+    # cache:
+    #   paths:
+    #     - "~/.npm"
     steps:
       - run: npm install
