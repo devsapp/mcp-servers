@@ -1,0 +1,11 @@
+nodejs-stdio-hello-world:
+  default:
+    rootPath: ./code
+    languages:
+      - nodejs20
+    cache:
+      paths:
+        - "~/.npm"
+    steps:
+      - run: npm install
+      - run: npm run build

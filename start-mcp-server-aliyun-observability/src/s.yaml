@@ -6,7 +6,7 @@ vars: #
   region: "{{ region }}"
 
 resources:
-  mcp-server-aliyun-observability:
+  aliyun-observability-mcp-server:
     component: fcai-mcp-server
     props:
       region: ${vars.region}

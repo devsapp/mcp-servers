@@ -1,4 +1,4 @@
-mcp-server-aliyun-observability:
+aliyun-observability-mcp-server:
   default:
     rootPath: ./code
     languages:

@@ -1,5 +1,5 @@
 services:
-  mcp-server-aliyun-observability:
+  aliyun-observability-mcp-server:
     AccessKeyID:
       title: 阿里云 AccessKey ID
       type: string
