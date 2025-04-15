@@ -52,21 +52,101 @@
 
 <appdetail id="flushContent">
 
-# 阿里云可观测服务 Observable MCP Server
+### 简介
 
-A Model Context Protocol server that provides time and timezone conversion capabilities. This server enables LLMs to get current time information and perform timezone conversions using IANA timezone names, with automatic system timezone detection.
+阿里云可观测 MCP服务，提供了一系列访问阿里云可观测各产品的工具能力，覆盖产品包含阿里云日志服务SLS、阿里云应用实时监控服务ARMS、阿里云云监控等，任意支持 MCP 协议的智能体助手都可快速接入。支持的产品如下:
 
-### Available Tools
+- [阿里云日志服务SLS](https://help.aliyun.com/zh/sls/product-overview/what-is-log-service)
+- [阿里云应用实时监控服务ARMS](https://help.aliyun.com/zh/arms/?scm=20140722.S_help@@%E6%96%87%E6%A1%A3@@34364._.RL_arms-LOC_2024NSHelpLink-OR_ser-PAR1_215042f917434789732438827e4665-V_4-P0_0-P1_0)
 
-- `get_current_time` - Get current time in a specific timezone or system timezone.
-  - Required arguments:
-    - `timezone` (string): IANA timezone name (e.g., 'America/New_York', 'Europe/London')
+### 权限要求
 
-- `convert_time` - Convert time between timezones.
-  - Required arguments:
-    - `source_timezone` (string): Source IANA timezone name
-    - `time` (string): Time in 24-hour format (HH:MM)
-    - `target_timezone` (string): Target IANA timezone name
+为了确保 MCP Server 能够成功访问和操作您的阿里云可观测性资源，您需要配置以下权限：
+
+1.  **阿里云访问密钥 (AccessKey)**：
+    *   服务运行需要有效的阿里云 AccessKey ID 和 AccessKey Secret。
+    *   获取和管理 AccessKey，请参考 [阿里云 AccessKey 管理官方文档](https://help.aliyun.com/document_detail/53045.html)。
+
+2.  **RAM 授权 (重要)**：
+    *   与 AccessKey 关联的 RAM 用户或角色**必须**被授予访问相关云服务所需的权限。
+    *   **强烈建议遵循"最小权限原则"**：仅授予运行您计划使用的 MCP 工具所必需的最小权限集，以降低安全风险。
+    *   根据您需要使用的工具，参考以下文档进行权限配置：
+        *   **日志服务 (SLS)**：如果您需要使用 `sls_*` 相关工具，请参考 [日志服务权限说明](https://help.aliyun.com/zh/sls/overview-8)，并授予必要的读取、查询等权限。
+        *   **应用实时监控服务 (ARMS)**：如果您需要使用 `arms_*` 相关工具，请参考 [ARMS 权限说明](https://help.aliyun.com/zh/arms/security-and-compliance/overview-8?scm=20140722.H_74783._.OR_help-T_cn~zh-V_1)，并授予必要的查询权限。
+    *   请根据您的实际应用场景，精细化配置所需权限。
+
+### 安全与部署建议
+
+请务必关注以下安全事项和部署最佳实践：
+
+1.  **密钥安全**：
+    *   本 MCP Server 在运行时会使用您提供的 AccessKey 调用阿里云 OpenAPI，但**不会以任何形式存储您的 AccessKey**，也不会将其用于设计功能之外的任何其他用途。
+
+2.  **访问控制 (关键)**：
+    *   当您选择通过 **SSE (Server-Sent Events) 协议** 访问 MCP Server 时，**您必须自行负责该服务接入点的访问控制和安全防护**。
+    *   **强烈建议**将 MCP Server 部署在**内部网络或受信环境**中，例如您的私有 VPC (Virtual Private Cloud) 内，避免直接暴露于公共互联网。
+    *   推荐的部署方式是使用**阿里云函数计算 (FC)**，并配置其网络设置为**仅 VPC 内访问**，以实现网络层面的隔离和安全。
+    *   **注意**：**切勿**在没有任何身份验证或访问控制机制的情况下，将配置了您 AccessKey 的 MCP Server SSE 端点暴露在公共互联网上，这会带来极高的安全风险。
+
+##### 工具列表
+目前提供的 MCP 工具以阿里云日志服务为主，其他产品会陆续支持，工具详细如下(具体以实际版本支持为主):
+- 增加 SLS 日志服务相关工具
+    - `sls_describe_logstore`
+        - 获取 SLS Logstore 的索引信息
+    - `sls_list_projects`
+        - 获取 SLS 项目列表
+    - `sls_list_logstores`
+        - 获取 SLS Logstore 列表
+    - `sls_describe_logstore`
+        - 获取 SLS Logstore 的索引信息
+    - `sls_execute_query`
+        - 执行SLS 日志查询
+    - `sls_translate_natural_language_to_query`
+        - 翻译自然语言为SLS 查询语句
+
+- 增加 ARMS 应用实时监控服务相关工具
+    - `arms_search_apps`
+        - 搜索 ARMS 应用
+    - `arms_generate_trace_query`
+        - 根据自然语言生成 trace 查询语句
+
+##### 场景举例
+
+- 场景一: 快速查询某个 logstore 相关结构
+    - 使用工具:
+        - `sls_list_logstores`
+        - `sls_describe_logstore`
+    ![image](./images/search_log_store.png)
+
+
+- 场景二: 模糊查询最近一天某个 logstore下面访问量最高的应用是什么
+    - 分析:
+        - 需要判断 logstore 是否存在
+        - 获取 logstore 相关结构
+        - 根据要求生成查询语句(对于语句用户可确认修改)
+        - 执行查询语句
+        - 根据查询结果生成响应
+    - 使用工具:
+        - `sls_list_logstores`
+        - `sls_describe_logstore`
+        - `sls_translate_natural_language_to_query`
+        - `sls_execute_query`
+    ![image](./images/fuzzy_search_and_get_logs.png)
+
+    
+- 场景三: 查询 ARMS 某个应用下面响应最慢的几条 Trace
+    - 分析:
+        - 需要判断应用是否存在
+        - 获取应用相关结构
+        - 根据要求生成查询语句(对于语句用户可确认修改)
+        - 执行查询语句
+        - 根据查询结果生成响应
+    - 使用工具:
+        - `arms_search_apps`
+        - `arms_generate_trace_query`
+        - `sls_translate_natural_language_to_query`
+        - `sls_execute_query`
+    ![image](./images/find_slowest_trace.png)
 
 
 ## Installation
