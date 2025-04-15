@@ -1,0 +1,33 @@
+services:
+  hologres-mcp-server:
+    HOLOGRES_HOST:
+      title: hologres host
+      type: string
+      default: ''
+      sensitive: false
+      description: hologres host
+    HOLOGRES_PORT:
+      title: hologres port
+      type: string
+      default: ''
+      sensitive: false
+      description: hologres port
+    HOLOGRES_USER:
+      title: hologres user
+      type: string
+      default: ''
+      sensitive: false
+      description: hologres user
+    HOLOGRES_PASSWORD:
+      title: hologres password
+      type: string
+      default: ''
+      sensitive: true
+      description: hologres password
+    HOLOGRES_DATABASE:
+      title: hologres database
+      type: string
+      default: ''
+      sensitive: false
+      description: hologres database
+  
