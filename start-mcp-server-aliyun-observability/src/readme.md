@@ -116,7 +116,7 @@
     - 使用工具:
         - `sls_list_logstores`
         - `sls_describe_logstore`
-    ![image](./images/search_log_store.png)
+    ![image](https://img.alicdn.com/imgextra/i1/O1CN01dOcgvN1NUwSLA0QVW_!!6000000001574-0-tps-2002-1466.jpg)
 
 
 - 场景二: 模糊查询最近一天某个 logstore下面访问量最高的应用是什么
@@ -131,7 +131,7 @@
         - `sls_describe_logstore`
         - `sls_translate_natural_language_to_query`
         - `sls_execute_query`
-    ![image](./images/fuzzy_search_and_get_logs.png)
+    ![image](https://img.alicdn.com/imgextra/i2/O1CN01wqG56Y1Gt1yd6mPTp_!!6000000000679-0-tps-2074-1664.jpg)
 
     
 - 场景三: 查询 ARMS 某个应用下面响应最慢的几条 Trace
@@ -146,7 +146,7 @@
         - `arms_generate_trace_query`
         - `sls_translate_natural_language_to_query`
         - `sls_execute_query`
-    ![image](./images/find_slowest_trace.png)
+    ![image](https://img.alicdn.com/imgextra/i3/O1CN01QkYifh1TcAOlogtbp_!!6000000002402-0-tps-2254-1652.jpg)
 
 
 ## Installation
