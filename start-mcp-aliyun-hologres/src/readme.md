@@ -1,7 +1,7 @@
 
 > 注：当前项目为 Serverless Devs 应用，由于应用中会存在需要初始化才可运行的变量（例如应用部署地区、函数名等等），所以**不推荐**直接 Clone 本仓库到本地进行部署或直接复制 s.yaml 使用，**强烈推荐**通过 `s init ${模版名称}` 的方法或应用中心进行初始化，详情可参考[部署 & 体验](#部署--体验) 。
 
-# alibabacloud-hologres-mcp-server 帮助文档
+# aliyun-hologres-mcp-server 帮助文档
 
 <description>
 
@@ -41,7 +41,7 @@
 
 <appcenter>
    
-- :fire: 通过 [云原生应用开发平台 CAP](https://cap.console.aliyun.com/template-detail?template=alibabacloud-hologres-mcp-server) ，[![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://cap.console.aliyun.com/template-detail?template=alibabacloud-hologres-mcp-server) 该应用。
+- :fire: 通过 [云原生应用开发平台 CAP](https://cap.console.aliyun.com/template-detail?template=aliyun-hologres-mcp-server) ，[![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://cap.console.aliyun.com/template-detail?template=aliyun-hologres-mcp-server) 该应用。
    
 </appcenter>
 <deploy>
@@ -55,24 +55,23 @@
 
 # Hologres MCP Server
 
-Hologres MCP Server serves as a universal interface between AI Agents and Hologres databases. It enables seamless communication between AI Agents and Hologres, helping AI Agents retrieve Hologres database metadata and execute SQL operations.
+Hologres MCP 服务器作为 AI 代理与 Hologres 数据库之间的通用接口，支持 AI 代理与 Hologres 之间的无缝通信，帮助 AI 代理获取 Hologres 数据库元数据并执行 SQL 操作。
 
-## Configuration
+## 配置
 
-### Mode 1: Using Local File
+### 模式 1：使用本地文件
 
-#### Download
+#### 下载
 
-Download from Github
+从 Github 下载：
 
-```shell
+```bash
 git clone https://github.com/aliyun/alibabacloud-hologres-mcp-server.git
 ```
 
-#### MCP Integration
+#### MCP 集成
 
-Add the following configuration to the MCP client configuration file:
-
+在 MCP 客户端配置文件中添加以下配置：
 ```json
 "mcpServers": {
   "hologres-mcp-server": {
@@ -94,19 +93,19 @@ Add the following configuration to the MCP client configuration file:
 }
 ```
 
-### Mode 2: Using PIP Mode
+### 模式 2：使用 PIP 模式
 
-#### Installation
+#### 安装
 
-Install MCP Server using the following package:
+使用以下包安装 MCP 服务器：
 
 ```bash
 pip install hologres-mcp-server
 ```
 
-#### MCP Integration
+#### MCP 集成
 
-Add the following configuration to the MCP client configuration file:
+在 MCP 客户端配置文件中添加以下配置：
 
 ```json
 "mcpServers": {
@@ -129,43 +128,55 @@ Add the following configuration to the MCP client configuration file:
   }
 ```
 
-## Components
+## 组件
 
-### Tools
+### 工具
 
-* `execute_select_sql`: Execute a SELECT SQL query on the Hologres server
-* `execute_dml_sql`: Execute a DML (INSERT, UPDATE, DELETE) SQL query on the Hologres server
-* `execute_ddl_sql`: Execute a DDL (CREATE, ALTER, DROP) SQL query on the Hologres server
-* `gather_table_statistics`: Collect table statistics
-* `get_query_plan`: Get query plan
-* `get_execution_plan`: Get execution plan
+- `execute_select_sql`：在 Hologres 数据库中执行 SELECT SQL 查询
 
-### Resources
+- `execute_dml_sql`：在 Hologres 数据库中执行 DML（INSERT、UPDATE、DELETE）SQL 查询
 
-#### Built-in Resources
+- `execute_ddl_sql`：在 Hologres 数据库中执行 DDL（CREATE、ALTER、DROP）SQL 查询
 
-* `hologres:///schemas`: Get all schemas in the database
+- `gather_table_statistics`：收集表统计信息
 
-#### Resource Templates
+- `get_query_plan`：获取查询计划
 
-* `hologres:///{schema}/tables`: List all tables in a schema
-* `hologres:///{schema}/{table}/partitions`: List all partitions of a partitioned table
-* `hologres:///{schema}/{table}/ddl`: Get table DDL
-* `hologres:///{schema}/{table}/statistic`: Show collected table statistics
-* `system:///{+system_path}`:
-  System paths include:
+- `get_execution_plan`：获取执行计划
 
-  * missing_stats_tables - Shows the tables that are missing statistics.
-  * stat_activity - Shows the information of current running queries.
-  * query_log/latest/<row_limits> - Get recent query log history with specified number of rows.
-  * query_log/user/<user_name>/<row_limits> - Get query log history for a specific user with row limits.
-  * query_log/application/<application_name>/<row_limits> - Get query log history for a specific application with row limits.
-  * query_log/failed/\<interval>\/<row_limits> - Get failed query log history with interval and specified number of rows.
+### 资源
+
+#### 资源
+
+- `hologres:///schemas`：获取数据库中的所有模式
+
+#### 资源模板
+
+- `hologres:///{schema}/tables`：列出某个模式下的所有表
+
+- `hologres:///{schema}/{table}/partitions`：列出分区表的所有分区
+
+- `hologres:///{schema}/{table}/ddl`：获取表的 DDL
+
+- `hologres:///{schema}/{table}/statistic`：显示收集的表统计信息
+
+- `system:///{+system_path}`：
+
+系统路径包括：
+
+`missing_stats_tables` - 显示缺少统计信息的表
+
+`stat_activity` - 显示当前正在运行的查询信息
+
+`query_log/latest/<row_limits>` - 获取指定行数的最近查询日志历史
+
+`query_log/user/<user_name>/<row_limits>` - 获取指定用户的指定行数查询日志历史
+
+`query_log/application/<application_name>/<row_limits>` - 获取指定应用的指定行数查询日志历史
+
+`query_log/failed/<interval>/<row_limits>` - 获取指定时间间隔和行数的失败查询日志历史
 
 </appdetail>
-
-
-
 
 
 
@@ -177,4 +188,3 @@ Add the following configuration to the MCP client configuration file:
 部署完成拿到 URL 后，准备好支持 SSE 的 MCP Client，通过 SSETransport 进行连接。
 
 </usedetail>
-
