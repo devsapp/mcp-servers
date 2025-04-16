@@ -1,31 +1,31 @@
 services:
   hologres-mcp-server:
     HOLOGRES_HOST:
-      title: hologres host
+      title: hologres实例公网访问地址
       type: string
       default: ''
       sensitive: false
       description: hologres host
     HOLOGRES_PORT:
-      title: hologres port
+      title: Hologres实例端口
       type: string
       default: ''
       sensitive: false
       description: hologres port
     HOLOGRES_USER:
-      title: hologres user
+      title: Hologres账号
       type: string
       default: ''
       sensitive: false
       description: hologres user
     HOLOGRES_PASSWORD:
-      title: hologres password
+      title: Hologres密码
       type: string
       default: ''
       sensitive: true
       description: hologres password
     HOLOGRES_DATABASE:
-      title: hologres database
+      title: Hologres数据库名称
       type: string
       default: ''
       sensitive: false
