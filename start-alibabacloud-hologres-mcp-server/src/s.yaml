@@ -12,9 +12,9 @@ resources:
       region: ${vars.region}
       description: mcp server deployed by devs
       transport: stdio
-      port: 8080
       runtime: python3.10
       startCommand: 'uv run --with hologres-mcp-server hologres-mcp-server'
       cpu: 0.5
       memorySize: 512
       instanceQuota: 1
+      enableAuth: true
