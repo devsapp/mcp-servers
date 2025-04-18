@@ -1,7 +1,7 @@
 services:
   hologres-mcp-server:
     HOLOGRES_HOST:
-      title: hologres实例公网访问地址
+      title: Hologres实例公网Host
       type: string
       default: ''
       sensitive: false
