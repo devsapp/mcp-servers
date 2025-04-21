@@ -66,8 +66,12 @@
 1.  **阿里云访问密钥 (AccessKey)**：
     *   服务运行需要有效的阿里云 AccessKey ID 和 AccessKey Secret。
     *   获取和管理 AccessKey，请参考 [阿里云 AccessKey 管理官方文档](https://help.aliyun.com/document_detail/53045.html)。
-
-2.  **RAM 授权 (重要)**：
+  
+2. 当你初始化时候不传入 AccessKey 和 AccessKey Secret 时，会使用[默认凭据链进行登录](https://www.alibabacloud.com/help/zh/sdk/developer-reference/v2-manage-python-access-credentials#62bf90d04dztq)
+   1. 如果环境变量 中的ALIBABA_CLOUD_ACCESS_KEY_ID 和 ALIBABA_CLOUD_ACCESS_KEY_SECRET均存在且非空，则使用它们作为默认凭据。
+   2. 如果同时设置了ALIBABA_CLOUD_ACCESS_KEY_ID、ALIBABA_CLOUD_ACCESS_KEY_SECRET和ALIBABA_CLOUD_SECURITY_TOKEN，则使用STS Token作为默认凭据。
+   
+3.  **RAM 授权 (重要)**：
     *   与 AccessKey 关联的 RAM 用户或角色**必须**被授予访问相关云服务所需的权限。
     *   **强烈建议遵循"最小权限原则"**：仅授予运行您计划使用的 MCP 工具所必需的最小权限集，以降低安全风险。
     *   根据您需要使用的工具，参考以下文档进行权限配置：
@@ -149,226 +153,62 @@
     ![image](./images/find_slowest_trace.png)
 
 
-## Installation
 
-### Using uv (recommended)
+#### 工具集成
 
-When using [`uv`](https://docs.astral.sh/uv/) no specific installation is needed. We will
-use [`uvx`](https://docs.astral.sh/uv/guides/tools/) to directly run *mcp-server-time*.
+> 以 SSE 启动方式为例,transport 端口为 8888,实际使用时需要根据实际情况修改
 
-### Using PIP
-
-Alternatively you can install `mcp-server-time` via pip:
-
-```bash
-pip install mcp-server-time
-```
-
-After installation, you can run it as a script using:
-
-```bash
-python -m mcp_server_time
-```
-
-## Configuration
-
-### Configure for Claude.app
-
-Add to your Claude settings:
-
-<details>
-<summary>Using uvx</summary>
-
-```json
-"mcpServers": {
-  "time": {
-    "command": "uvx",
-    "args": ["mcp-server-time"]
-  }
-}
-```
-</details>
-
-<details>
-<summary>Using docker</summary>
-
-```json
-"mcpServers": {
-  "time": {
-    "command": "docker",
-    "args": ["run", "-i", "--rm", "mcp/time"]
-  }
-}
-```
-</details>
-
-<details>
-<summary>Using pip installation</summary>
-
-```json
-"mcpServers": {
-  "time": {
-    "command": "python",
-    "args": ["-m", "mcp_server_time"]
-  }
-}
-```
-</details>
-
-### Configure for Zed
-
-Add to your Zed settings.json:
-
-<details>
-<summary>Using uvx</summary>
-
-```json
-"context_servers": [
-  "mcp-server-time": {
-    "command": "uvx",
-    "args": ["mcp-server-time"]
-  }
-],
-```
-</details>
-
-<details>
-<summary>Using pip installation</summary>
-
-```json
-"context_servers": {
-  "mcp-server-time": {
-    "command": "python",
-    "args": ["-m", "mcp_server_time"]
-  }
-},
-```
-</details>
-
-### Customization - System Timezone
-
-By default, the server automatically detects your system's timezone. You can override this by adding the argument `--local-timezone` to the `args` list in the configuration.
-
-Example:
+#### Cursor，Cline 等集成
+1. 使用 SSE 启动方式
 ```json
 {
-  "command": "python",
-  "args": ["-m", "mcp_server_time", "--local-timezone=America/New_York"]
-}
-```
-
-## Example Interactions
-
-1. Get current time:
-```json
-{
-  "name": "get_current_time",
-  "arguments": {
-    "timezone": "Europe/Warsaw"
+  "mcpServers": {
+    "alibaba_cloud_observability": {
+      "url": "http://localhost:7897/sse"
+        }
   }
 }
 ```
-Response:
+2. 使用 stdio 启动方式
+   直接从源码目录启动,注意
+    1. 需要指定 `--directory` 参数,指定源码目录，最好是绝对路径
+    2. uv命令 最好也使用绝对路径，如果使用了虚拟环境，则需要使用虚拟环境的绝对路径
 ```json
 {
-  "timezone": "Europe/Warsaw",
-  "datetime": "2024-01-01T13:00:00+01:00",
-  "is_dst": false
-}
-```
-
-2. Convert time between timezones:
-```json
-{
-  "name": "convert_time",
-  "arguments": {
-    "source_timezone": "America/New_York",
-    "time": "16:30",
-    "target_timezone": "Asia/Tokyo"
+  "mcpServers": {
+    "alibaba_cloud_observability": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/path/to/your/alibabacloud-observability-mcp-server",
+        "run",
+        "mcp-server-aliyun-observability"
+      ],
+      "env": {
+        "ALIBABA_CLOUD_ACCESS_KEY_ID": "<your_access_key_id>",
+        "ALIBABA_CLOUD_ACCESS_KEY_SECRET": "<your_access_key_secret>"
+      }
+    }
   }
 }
 ```
-Response:
+1. 使用 stdio 启动方式-从 module 启动
 ```json
 {
-  "source": {
-    "timezone": "America/New_York",
-    "datetime": "2024-01-01T12:30:00-05:00",
-    "is_dst": false
-  },
-  "target": {
-    "timezone": "Asia/Tokyo",
-    "datetime": "2024-01-01T12:30:00+09:00",
-    "is_dst": false
-  },
-  "time_difference": "+13.0h",
+  "mcpServers": {
+    "alibaba_cloud_observability": {
+      "command": "uv",
+      "args": [
+        "run",
+        "mcp-server-aliyun-observability"
+      ],
+      "env": {
+        "ALIBABA_CLOUD_ACCESS_KEY_ID": "<your_access_key_id>",
+        "ALIBABA_CLOUD_ACCESS_KEY_SECRET": "<your_access_key_secret>"
+      }
+    }
+  }
 }
-```
-
-## Debugging
-
-You can use the MCP inspector to debug the server. For uvx installations:
-
-```bash
-npx @modelcontextprotocol/inspector uvx mcp-server-time
-```
-
-Or if you've installed the package in a specific directory or are developing on it:
-
-```bash
-cd path/to/servers/src/time
-npx @modelcontextprotocol/inspector uv run mcp-server-time
-```
-
-## Examples of Questions for Claude
-
-1. "What time is it now?" (will use system timezone)
-2. "What time is it in Tokyo?"
-3. "When it's 4 PM in New York, what time is it in London?"
-4. "Convert 9:30 AM Tokyo time to New York time"
-
-## Build
-
-Docker build:
-
-```bash
-cd src/time
-docker build -t mcp/time .
-```
-
-## Contributing
-
-We encourage contributions to help expand and improve mcp-server-time. Whether you want to add new time-related tools, enhance existing functionality, or improve documentation, your input is valuable.
-
-For examples of other MCP servers and implementation patterns, see:
-https://github.com/modelcontextprotocol/servers
-
-Pull requests are welcome! Feel free to contribute new ideas, bug fixes, or enhancements to make mcp-server-time even more powerful and useful.
-
-## License
-
-mcp-server-time is licensed under the MIT License. This means you are free to use, modify, and distribute the software, subject to the terms and conditions of the MIT License. For more details, please see the LICENSE file in the project repository.
-
-</appdetail>
-
-
-
-
-
-
-
-## 使用流程
-
-<usedetail id="flushContent">
-
-部署完成拿到 URL 后，准备好支持 SSE 的 MCP Client，通过 SSETransport 进行连接。
-
-</usedetail>
-
-
-
-
-
 
 
 
