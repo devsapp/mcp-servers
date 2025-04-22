@@ -18,3 +18,4 @@ resources:
       memorySize: 512
       instanceQuota: 1
       enableAuth: true
+      role: {{ serviceRole }}
