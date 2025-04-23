@@ -1,0 +1,68 @@
+services:
+  aliyun-tablestore-mcp-server:
+    TABLESTORE_INSTANCE_NAME:
+      title: TableStore实例名称
+      type: string
+      default: ''
+      sensitive: false
+      description: TableStore实例名称
+    TABLESTORE_ENDPOINT:
+      title: TableStore Endpoint
+      type: string
+      default: ''
+      sensitive: false
+      description: TableStore Endpoint
+    TABLESTORE_ACCESS_KEY_ID:
+      title:  阿里云账号AK
+      type: string
+      default: ''
+      sensitive: true
+      description: 阿里云账号AK(需含有TableStore相应权限)
+    TABLESTORE_ACCESS_KEY_SECRET:
+      title: 阿里云账号SK
+      type: string
+      default: ''
+      sensitive: true
+      description: 阿里云账号SK(需含有TableStore相应权限)
+    TABLESTORE_TABLE_NAME:
+      title: OTS表名
+      type: string
+      default: 'tablestore_java_mcp_server_v1'
+      sensitive: false
+      description: OTS表名
+    TABLESTORE_INDEX_NAME:
+      title: OTS索引名
+      type: string
+      default: 'tablestore_java_mcp_server_index_v1'
+      sensitive: false
+      description: OTS索引名
+    TABLESTORE_VECTOR_DIMENSION:
+      title: 向量维度
+      type: number
+      default: 768
+      sensitive: false
+      description: 向量维度
+    TABLESTORE_TEXT_FIELD:
+      title: 文本字段名
+      type: string
+      default: '_content'
+      sensitive: false
+      description: 文本字段名
+    TABLESTORE_VECTOR_FIELD:
+      title: 向量字段名
+      type: string
+      default: '_embedding'
+      sensitive: false
+      description: 向量字段名
+    TABLESTORE_TABLE_PK_NAME:
+      title: 主键字段名
+      type: string
+      default: 'id'
+      sensitive: false
+      description: 主键字段名
+    EMBEDDING_MODEL_NAME:
+      title: Embedding 模型名称
+      type: string
+      default: 'ai.djl.huggingface.rust/BAAI/bge-base-en-v1.5/0.0.1/bge-base-en-v1.5'
+      sensitive: false
+      description: Embedding 模型名称

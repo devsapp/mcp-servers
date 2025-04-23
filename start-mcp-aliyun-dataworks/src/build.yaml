@@ -1,0 +1,10 @@
+aliyun-dataworks-mcp-server:
+  default:
+    rootPath: ./code
+    languages:
+      - nodejs20
+    cache:
+      paths:
+        - "~/.cache"
+    steps:
+      - run: npm install alibabacloud-dataworks-mcp-server
