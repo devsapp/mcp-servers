@@ -1,7 +1,7 @@
 Edition: 3.0.0
 Type: Project
 Name: aliyun-hologres-mcp-server
-Version: 0.0.3
+Version: 0.0.4
 Provider:
   - 阿里云 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
 Description: Hologres MCP Server 模版
@@ -9,7 +9,6 @@ HomePage: https://github.com/devsapp/mcp-servers/tree/function-ai/start-mcp-aliy
 Tags: #标签详情
   - MCP
   - Serverless Devs
-  - Develop-Fold
 Category: MCP服务 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
 Service: # 使用的服务
   函数计算: # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
@@ -31,3 +30,14 @@ Parameters:
       enum:
         - cn-beijing
         - cn-hangzhou
+    serviceRole:
+      title: 函数计算访问Hologres服务角色
+      type: string
+      default: "AliyunFCDefaultRole"
+      pattern: "^acs:ram::[0-9]*:role/.*$"
+      description: 函数中需要基于此角色访问 Hologres，需要在 Hologres 控制台中使用该角色创建用户，详情参考 https://help.aliyun.com/zh/hologres/user-guide/manage-users
+      required: true
+      x-role:
+        name: AliyunFCDefaultRole
+        service: FC
+      

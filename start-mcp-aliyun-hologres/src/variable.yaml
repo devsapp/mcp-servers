@@ -12,18 +12,6 @@ services:
       default: ''
       sensitive: false
       description: hologres port
-    HOLOGRES_USER:
-      title: Hologres账号
-      type: string
-      default: ''
-      sensitive: false
-      description: hologres user
-    HOLOGRES_PASSWORD:
-      title: Hologres密码
-      type: string
-      default: ''
-      sensitive: true
-      description: hologres password
     HOLOGRES_DATABASE:
       title: Hologres数据库名称
       type: string

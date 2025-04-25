@@ -42,6 +42,10 @@
 <appcenter>
    
 - :fire: 通过 [云原生应用开发平台 CAP](https://cap.console.aliyun.com/template-detail?template=aliyun-hologres-mcp-server) ，[![Deploy with Severless Devs](https://img.alicdn.com/imgextra/i1/O1CN01w5RFbX1v45s8TIXPz_!!6000000006118-55-tps-95-28.svg)](https://cap.console.aliyun.com/template-detail?template=aliyun-hologres-mcp-server) 该应用。
+
+- 部署该应用时，可以使用一个RAM Role 访问Hologres，无需用户输入账号密码，提升安全性。
+
+- 对于指定的 RAM Role,需要参考 Hologres 的[用户管理文档](https://help.aliyun.com/zh/hologres/user-guide/manage-users)将用户加入Hologres实例，然后根据[DB管理文档](https://help.aliyun.com/zh/hologres/user-guide/manage-databases)授予 RAM Role 对应的权限。
    
 </appcenter>
 <deploy>
