@@ -14,8 +14,9 @@ resources:
       transport: sse
       port: 8080
       runtime: python3.10
-      startCommand: 'python3 -m mcp_server_aliyun_observability --transport sse --transport-port 8080 --access-key-id ${self.AccessKeyID} --access-key-secret ${self.AccessKeySecret}'
+      startCommand: 'python3 -m mcp_server_aliyun_observability --transport sse --transport-port 8080'
       cpu: 0.5
       memorySize: 512
       instanceQuota: 1
       enableAuth: true
+      role: {{ serviceRole }}

@@ -1,7 +1,7 @@
 Edition: 3.0.0
 Type: Project
 Name: aliyun-observability-mcp-server
-Version: 0.0.6
+Version: 0.0.7
 Provider:
   - 阿里云 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
 Description: 阿里云可观测 MCP Server 模版
@@ -31,3 +31,16 @@ Parameters:
       enum:
         - cn-beijing
         - cn-hangzhou
+    serviceRole:
+      title: 函数计算访问阿里云可观测服务SLS、ARMS服务角色
+      type: string
+      default: "AliyunFCDefaultRole"
+      pattern: "^acs:ram::[0-9]*:role/.*$"
+      description: 函数中需要基于此角色访问云产品SLS以及ARMS
+      required: true
+      x-role:
+        name: AliyunFCDefaultRole
+        service: FC
+        authorities:
+          - AliyunLogFullAccess
+          - AliyunARMSFullAccess
