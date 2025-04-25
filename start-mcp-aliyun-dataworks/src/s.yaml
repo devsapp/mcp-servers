@@ -1,0 +1,20 @@
+edition: 3.0.0
+name: mcp-server-app
+access: "{{ access }}"
+
+vars: #
+  region: "{{ region }}"
+
+resources:
+  aliyun-dataworks-mcp-server:
+    component: fcai-mcp-server
+    props:
+      region: ${vars.region}
+      description: mcp server deployed by devs
+      transport: stdio
+      runtime: nodejs20
+      startCommand: 'npx -y alibabacloud-dataworks-mcp-server'
+      cpu: 0.5
+      memorySize: 512
+      instanceQuota: 1
+      enableAuth: true

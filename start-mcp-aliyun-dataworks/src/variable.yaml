@@ -1,0 +1,36 @@
+services:
+  aliyun-dataworks-mcp-server:
+    REGION:
+      title: DataWorks实例地域
+      type: string
+      default: ''
+      sensitive: false
+      description: 调用DataWorks API的地域
+      enum:
+        - cn-beijing
+        - cn-hangzhou
+    ALIBABA_CLOUD_ACCESS_KEY_ID:
+      title: 阿里云账号AK
+      type: string
+      default: ''
+      sensitive: true
+      description: 调用DataWorks API的阿里云账号AK
+    ALIBABA_CLOUD_ACCESS_KEY_SECRET:
+      title:  阿里云账号SK
+      type: string
+      default: ''
+      sensitive: true
+      description: 调用DataWorks API的阿里云账号SK
+    TOOL_CATEGORIES:
+      title: 工具种类
+      type: string
+      default: ''
+      sensitive: false
+      description: （可选）请在此处填写OpenAPI的分类，多个分类之间用半角逗号分隔。例如:数据源,空间管理,资源组管理,数据地图,数据集成,数据开发（新版）,运维中心,数据服务,开放平台,数据质量,标签管理,安全中心,SERVER_IDE_DEFAULT
+    TOOL_NAMES:
+      title: 工具名
+      type: string
+      default: ''
+      sensitive: false
+      description: （可选）请在此处填写OpenAPI的名字，多个名字之间用半角逗号分隔。例如：ListProjects,CreateNode,UpdateNode
+  

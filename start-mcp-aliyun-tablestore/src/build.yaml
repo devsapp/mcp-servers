@@ -1,0 +1,10 @@
+aliyun-tablestore-mcp-server:
+  default:
+    rootPath: ./code
+    languages:
+      - java17
+    cache:
+      paths:
+        - "~/.m2"
+    steps:
+      - run: sh -c "mvn package -DskipTests -s settings.xml"
