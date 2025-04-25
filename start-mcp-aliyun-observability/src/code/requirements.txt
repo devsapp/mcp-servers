@@ -1,1 +1,1 @@
-mcp-server-aliyun-observability==0.1.9
+mcp-server-aliyun-observability==0.2.2
