@@ -1,0 +1,136 @@
+{
+	"tools": [{
+			"inputSchema": {
+				"$schema": "http://json-schema.org/draft-07/schema#",
+				"additionalProperties": false,
+				"type": "object",
+				"properties": {
+					"message": {
+						"description": "Message to echo",
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				]
+			},
+			"name": "echo",
+			"description": "Echoes back the input"
+		},
+		{
+			"inputSchema": {
+				"$schema": "http://json-schema.org/draft-07/schema#",
+				"additionalProperties": false,
+				"type": "object",
+				"properties": {
+					"a": {
+						"description": "First number",
+						"type": "number"
+					},
+					"b": {
+						"description": "Second number",
+						"type": "number"
+					}
+				},
+				"required": [
+					"a",
+					"b"
+				]
+			},
+			"name": "add",
+			"description": "Adds two numbers"
+		},
+		{
+			"inputSchema": {
+				"$schema": "http://json-schema.org/draft-07/schema#",
+				"additionalProperties": false,
+				"type": "object",
+				"properties": {}
+			},
+			"name": "printEnv",
+			"description": "Prints all environment variables, helpful for debugging MCP server configuration"
+		},
+		{
+			"inputSchema": {
+				"$schema": "http://json-schema.org/draft-07/schema#",
+				"additionalProperties": false,
+				"type": "object",
+				"properties": {
+					"duration": {
+						"default": 10,
+						"description": "Duration of the operation in seconds",
+						"type": "number"
+					},
+					"steps": {
+						"default": 5,
+						"description": "Number of steps in the operation",
+						"type": "number"
+					}
+				}
+			},
+			"name": "longRunningOperation",
+			"description": "Demonstrates a long running operation with progress updates"
+		},
+		{
+			"inputSchema": {
+				"$schema": "http://json-schema.org/draft-07/schema#",
+				"additionalProperties": false,
+				"type": "object",
+				"properties": {
+					"maxTokens": {
+						"default": 100,
+						"description": "Maximum number of tokens to generate",
+						"type": "number"
+					},
+					"prompt": {
+						"description": "The prompt to send to the LLM",
+						"type": "string"
+					}
+				},
+				"required": [
+					"prompt"
+				]
+			},
+			"name": "sampleLLM",
+			"description": "Samples from an LLM using MCP's sampling feature"
+		},
+		{
+			"inputSchema": {
+				"$schema": "http://json-schema.org/draft-07/schema#",
+				"additionalProperties": false,
+				"type": "object",
+				"properties": {}
+			},
+			"name": "getTinyImage",
+			"description": "Returns the MCP_TINY_IMAGE"
+		},
+		{
+			"inputSchema": {
+				"$schema": "http://json-schema.org/draft-07/schema#",
+				"additionalProperties": false,
+				"type": "object",
+				"properties": {
+					"includeImage": {
+						"default": false,
+						"description": "Whether to include an example image",
+						"type": "boolean"
+					},
+					"messageType": {
+						"description": "Type of message to demonstrate different annotation patterns",
+						"type": "string",
+						"enum": [
+							"error",
+							"success",
+							"debug"
+						]
+					}
+				},
+				"required": [
+					"messageType"
+				]
+			},
+			"name": "annotatedMessage",
+			"description": "Demonstrates how annotations can be used to provide metadata about content"
+		}
+	]
+}
