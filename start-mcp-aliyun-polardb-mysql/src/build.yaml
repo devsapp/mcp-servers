@@ -1,0 +1,11 @@
+polardb-mysql-mcp-server:
+  default:
+    rootPath: ./code
+    languages:
+      - python3.10
+    cache:
+      paths:
+        - "~/.cache"
+    steps:
+      - run: mkdir -p python
+      - run: pip install -r requirements.txt -t ./python
