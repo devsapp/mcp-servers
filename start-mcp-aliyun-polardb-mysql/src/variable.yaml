@@ -1,0 +1,40 @@
+services:
+  polardb-mysql-mcp-server:
+    POLARDB_MYSQL_HOST:
+      title: 数据库实例公网Host
+      type: string
+      default: ''
+      sensitive: false
+      description: 请填写数据库实例host，由于函数计算出口IP不固定，需要将数据库实例公网白名单开放至0.0.0.0
+    POLARDB_MYSQL_PORT:
+      title: 数据库实例端口
+      type: string
+      default: ''
+      sensitive: false
+      description: 请填写数据库实例端口
+    POLARDB_MYSQL_USER:
+      title: 数据库用户名称
+      type: string
+      default: ''
+      sensitive: false
+      description: 请填写用户名
+    POLARDB_MYSQL_PASSWORD:
+      title: 数据库密码
+      type: string
+      default: ''
+      sensitive: true
+      description: 请填写数据库密码
+    POLARDB_MYSQL_DATABASE:
+      title: 数据库名称
+      type: string
+      default: ''
+      sensitive: false
+      description: 请填写数据库名称
+    RUN_MODE:
+      title: MCP Server运行模式
+      type: string
+      default: 'stdio'
+      enum:
+        - stdio
+      sensitive: false
+      description: MCP Server运行模式，默认选择STDIO部署到本平台

@@ -1,0 +1,39 @@
+Edition: 3.0.0
+Type: Project
+Name: aliyun-polardb-mysql-mcp-server
+Version: 1.0.1
+Provider:
+  - 阿里云 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
+Description: PolarDB MySQL MCP Server 模版
+HomePage: https://github.com/devsapp/mcp-servers/tree/function-ai/start-mcp-aliyun-polardb-mysql
+Tags: #标签详情
+  - MCP
+  - Serverless Devs
+  - AliyunMCP
+Category: MCP服务 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
+Service: # 使用的服务
+  函数计算: # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
+    Authorities: #权限描述
+      - AliyunFCFullAccess # 所需要的权限，例如AliyunFCFullAccess
+Organization: 阿里云函数计算（FC） # 所属组织
+Effective: Public # 是否公开，取值：Public，Private，Organization
+Parameters:
+  type: object
+  additionalProperties: false # 不允许增加其他属性
+  required: # 必填项
+    - region
+    - POLARDB_MYSQL_HOST
+    - POLARDB_MYSQL_PORT
+    - POLARDB_MYSQL_USER
+    - POLARDB_MYSQL_PASSWORD
+    - POLARDB_MYSQL_DATABASE
+  properties:
+    region:
+      title: 地域
+      type: string
+      default: cn-hangzhou
+      description: 创建应用所在的地区
+      enum:
+        - cn-beijing
+        - cn-hangzhou
+      
