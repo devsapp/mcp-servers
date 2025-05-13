@@ -1,0 +1,20 @@
+edition: 3.0.0
+name: mcp-server-app
+access: "{{ access }}"
+
+vars: #
+  region: "{{ region }}"
+
+resources:
+  polardb-mysql-mcp-server:
+    component: fcai-mcp-server
+    props:
+      region: ${vars.region}
+      description: mcp server deployed by devs
+      transport: stdio
+      runtime: python3.10
+      startCommand: 'uv run --with polardb-mysql-mcp-server run_polardb_mysql_mcp_server'
+      cpu: 1
+      memorySize: 2048
+      instanceQuota: 1
+      enableAuth: true
